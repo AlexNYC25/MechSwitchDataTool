@@ -8,10 +8,10 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.label = tk.Label(self, text="Welcome to the application")
-        self.label.pack(pady=10, padx=10)
+        self.label.grid(row=0, column=1, columnspan=5, pady=10, padx=10)
 
         self.button1 = ttk.Button(self, text="Start",command=lambda: controller.show_frame(NewSwitch))
-        self.button1.pack()
+        self.button1.grid(row=1, column=1,pady=10, padx=10)
 
 class NewSwitch(tk.Frame):
     def __init__(self, parent, controller):
@@ -26,58 +26,6 @@ class NewSwitch(tk.Frame):
         self.id_label.grid(row=1, column=0)
         self.id_imput = ttk.Entry(self)
         self.id_imput.grid(row=1, column=1)
-
-
-class Application(tk.Tk):
-    def __init__(self, master=None):
-        tk.Tk.__init__(self)
-        container = tk.Frame(self)
-
-        container.pack(side="top", fill="both", expand=True)
-
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
-
-        self.frames = {}
-
-        for F in (StartPage, NewSwitch):
-            frame = F(container, self)
-            self.frames[F] = frame
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame(StartPage)
-
-    def show_frame(self, cont):
-        frame = self.frames[cont]
-        frame.tkraise()
-
-    def say_hi(self):
-        print("hi there, everyone!")
-
-    
-
-
-
-app = Application()
-app.mainloop()
-
-def create_widgets(self):
-        """
-        self.hi_there = ttk.Button(self)
-        self.hi_there["text"] = "Hello World\n(click me)"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.pack(side="top")
-
-        self.quit = ttk.Button(self, text="QUIT")
-        self.quit.pack(side="bottom")
-        """
-
-        """
-        self.id_label = ttk.Label(self, text="ID")
-        self.id_label.grid(row=1, column=0)
-        self.id_imput = ttk.Entry(self)
-        self.id_imput.grid(row=1, column=1)
-        """
 
         self.name_label = ttk.Label(self, text="Name")
         self.name_label.grid(row=2, column=0)
@@ -149,7 +97,38 @@ def create_widgets(self):
         self.submit = ttk.Button(self, text="Submit", command=self.submitHandler)
         self.submit.grid(row=15, column=0)
 
-def submitHandler(self):
-    print("Submit")
-    print(self.name_imput.get())
-    self.name_imput.delete(0, 'end')
+    def submitHandler(self):
+        print("Submit")
+        print(self.name_imput.get())
+        self.name_imput.delete(0, 'end')
+
+
+class Application(tk.Tk):
+    def __init__(self, master=None):
+        tk.Tk.__init__(self)
+        container = tk.Frame(self)
+
+        container.pack(side="top", fill="both", expand=True)
+
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+        self.frames = {}
+
+        for F in (StartPage, NewSwitch):
+            frame = F(container, self)
+            self.frames[F] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame(StartPage)
+
+    def show_frame(self, cont):
+        frame = self.frames[cont]
+        frame.tkraise()
+
+
+    
+
+app = Application()
+app.mainloop()
+
