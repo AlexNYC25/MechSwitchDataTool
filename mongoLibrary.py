@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-class mechanicalClient:
+class MechanicalClient:
     def __init__(self):
         self.client = MongoClient(os.environ.get('MONGO_URI'))
         self.db = self.client.Mechanical_switches
@@ -19,7 +19,8 @@ class mechanicalClient:
         return self.switches.find()
 
     def insertSwitch(self, switch):
-        self.switches.insert_one(switch)
+        result = self.switches.insert_one(switch)
+        print(f"Inserted switch with id: {result.inserted_id}")
 
     def updateSwitch(self, switch_id, switch):
         self.switches.update_one({"_id": switch_id}, {"$set": switch})
